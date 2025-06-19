@@ -81,6 +81,18 @@
         }
     </style>
 
+    <div class="filtros-container d-flex justify-content-between align-items-center mb-3">
+        <h3>CRUD VIDEOJUEGOS - RETO 04</h3>
+<%--        <asp:Button
+            ID="btnGenerarRanking"
+            runat="server"
+            CssClass="btn btn-primary"
+            Text="Generar Ranking"
+            OnClick="btnGenerarRanking_Click" />--%>
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#rankingModal">
+            Generar Ranking
+        </button>
+    </div>
     <!-- Contenedor de filtros -->
     <div class="filtros-container">
         <div class="filtro-group">
@@ -137,8 +149,8 @@
                     <asp:LinkButton runat="server" CommandName="CustomEdit" CommandArgument='<%# Eval("Id") %>'
                         CssClass="btn btn-sm btn-primary" Text="Actualizar" />
                     <asp:LinkButton runat="server" CommandName="CustomDelete" CommandArgument='<%# Eval("Id") %>'
-                        CssClass="btn btn-sm btn-danger" Text="Eliminar" 
-                        Visible='<%# User.IsInRole("Administrador") %>'/>
+                        CssClass="btn btn-sm btn-danger" Text="Eliminar"
+                        Visible='<%# User.IsInRole("Administrador") %>' />
                 </ItemTemplate>
             </asp:TemplateField>
         </Columns>
@@ -190,6 +202,34 @@
             </div>
         </div>
     </asp:Panel>
+    <!-- Modal para generar ranking -->
+    <div class="modal fade" id="rankingModal" tabindex="-1" aria-labelledby="rankingModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="rankingModalLabel">Generar Ranking de Videojuegos - Reto 06</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="txtTop" class="form-label">Top deseado (0 para todos):</label>
+                        <asp:TextBox ID="txtTop" runat="server" CssClass="form-control" TextMode="Number" min="0"></asp:TextBox>
+                        <asp:RegularExpressionValidator ID="revTop" runat="server"
+                            ControlToValidate="txtTop"
+                            ValidationExpression="^\d+$"
+                            ErrorMessage="Solo valores enteros positivos"
+                            CssClass="text-danger"
+                            Display="Dynamic"></asp:RegularExpressionValidator>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <asp:Button ID="btnGenerarCSV" runat="server" CssClass="btn btn-primary"
+                        Text="Generar y Descargar" OnClick="btnGenerarCSV_Click" />
+                </div>
+            </div>
+        </div>
+    </div>
     <asp:Button ID="btnFake" runat="server" Style="display: none;" />
     <asp:Button ID="btnFakeEditar" runat="server" Style="display: none;" />
 </asp:Content>

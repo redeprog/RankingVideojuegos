@@ -69,7 +69,7 @@
     <div class="container">
         <div class="login-card">
             <div class="card-header">
-                <h3>Registro de Usuario</h3>
+                <h3>Registro de Usuario - Reto 03</h3>
             </div>
             <div class="card-body">
                 <asp:ValidationSummary runat="server" CssClass="alert alert-danger" />

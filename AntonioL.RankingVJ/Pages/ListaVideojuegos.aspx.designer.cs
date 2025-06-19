@@ -150,6 +150,33 @@ namespace AntonioL.RankingVJ.Pages
         protected global::System.Web.UI.WebControls.Button btnCancelarEdicion;
 
         /// <summary>
+        /// Control txtTop.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtTop;
+
+        /// <summary>
+        /// Control revTop.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RegularExpressionValidator revTop;
+
+        /// <summary>
+        /// Control btnGenerarCSV.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnGenerarCSV;
+
+        /// <summary>
         /// Control btnFake.
         /// </summary>
         /// <remarks>

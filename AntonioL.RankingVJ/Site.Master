@@ -66,9 +66,12 @@
                                 </li>
                                 <li class="nav-item">
                                     <%--<asp:LinkButton ID="btnLogout" runat="server" CssClass="nav-link" OnClick="btnLogout_Click">Salir</asp:LinkButton>--%>
-                                    <asp:LinkButton ID="LinkButton1" runat="server" CssClass="nav-link" OnClick="btnLogout_Click" ToolTip="Cerrar sesión">
-                                        <i class="bi bi-box-arrow-right"></i> <!-- Ícono de salida de Font Awesome -->
-                                    </asp:LinkButton>
+                                    <%--<asp:LinkButton ID="LinkButton1" runat="server" CssClass="nav-link" OnClick="btnLogout_Click" ToolTip="Cerrar sesión">
+                                        <i class="bi bi-box-arrow-right"></i>
+                                    </asp:LinkButton>--%>
+                                    <a href="#" class="nav-link" data-bs-toggle="modal" data-bs-target="#logoutModal" title="Cerrar sesión">
+                                        <i class="bi bi-box-arrow-right"></i>
+                                    </a>
                                 </li>
                             </ul>
                         </div>
@@ -84,6 +87,24 @@
             <footer>
                 <p>&copy; <%: DateTime.Now.Year %> -  Prueba Antonio López - ASP.NET</p>
             </footer>
+            <!-- Modal de Confirmación para Cerrar Sesión -->
+            <div class="modal fade" id="logoutModal" tabindex="-1" aria-labelledby="logoutModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="logoutModalLabel">Cerrar sesión - Reto 07</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            ¿Estás seguro que deseas cerrar sesión?
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                            <asp:Button ID="btnConfirmLogout" runat="server" CssClass="btn btn-danger" Text="Aceptar" OnClick="btnLogout_Click" />
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </form>
     <asp:PlaceHolder runat="server">
