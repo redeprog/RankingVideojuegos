@@ -1,0 +1,222 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="OL_Gamers_ALModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Calificaciones">
+          <Key>
+            <PropertyRef Name="id_calificacion" />
+          </Key>
+          <Property Name="id_calificacion" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="id_videojuego" Type="int" Nullable="false" />
+          <Property Name="nickname" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="puntuacion" Type="decimal" Precision="3" Scale="2" Nullable="false" />
+          <Property Name="fecha_actualizacion" Type="datetime" Nullable="false" />
+          <Property Name="usuario_actualizacion" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Companias">
+          <Key>
+            <PropertyRef Name="id_compania" />
+          </Key>
+          <Property Name="id_compania" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="fecha_actualizacion" Type="datetime" Nullable="false" />
+          <Property Name="usuario_actualizacion" Type="nvarchar" MaxLength="128" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Videojuegos">
+          <Key>
+            <PropertyRef Name="id_videojuego" />
+          </Key>
+          <Property Name="id_videojuego" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="id_compania" Type="int" />
+          <Property Name="anio_lanzamiento" Type="int" />
+          <Property Name="precio" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="puntaje_promedio" Type="decimal" Precision="3" Scale="2" />
+          <Property Name="fecha_actualizacion" Type="datetime" Nullable="false" />
+          <Property Name="usuario_actualizacion" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Calificaciones_Videojuegos">
+          <End Role="Videojuegos" Type="Self.Videojuegos" Multiplicity="1" />
+          <End Role="Calificaciones" Type="Self.Calificaciones" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Videojuegos">
+              <PropertyRef Name="id_videojuego" />
+            </Principal>
+            <Dependent Role="Calificaciones">
+              <PropertyRef Name="id_videojuego" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Videojuegos_Companias">
+          <End Role="Companias" Type="Self.Companias" Multiplicity="0..1" />
+          <End Role="Videojuegos" Type="Self.Videojuegos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Companias">
+              <PropertyRef Name="id_compania" />
+            </Principal>
+            <Dependent Role="Videojuegos">
+              <PropertyRef Name="id_compania" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="OL_Gamers_ALModelStoreContainer">
+          <EntitySet Name="Calificaciones" EntityType="Self.Calificaciones" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Companias" EntityType="Self.Companias" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Videojuegos" EntityType="Self.Videojuegos" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Calificaciones_Videojuegos" Association="Self.FK_Calificaciones_Videojuegos">
+            <End Role="Videojuegos" EntitySet="Videojuegos" />
+            <End Role="Calificaciones" EntitySet="Calificaciones" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Videojuegos_Companias" Association="Self.FK_Videojuegos_Companias">
+            <End Role="Companias" EntitySet="Companias" />
+            <End Role="Videojuegos" EntitySet="Videojuegos" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="OL_Gamers_ALModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Calificacione">
+          <Key>
+            <PropertyRef Name="id_calificacion" />
+          </Key>
+          <Property Name="id_calificacion" Type="Guid" Nullable="false" />
+          <Property Name="id_videojuego" Type="Int32" Nullable="false" />
+          <Property Name="nickname" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="puntuacion" Type="Decimal" Precision="3" Scale="2" Nullable="false" />
+          <Property Name="fecha_actualizacion" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="usuario_actualizacion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Videojuego" Relationship="Self.FK_Calificaciones_Videojuegos" FromRole="Calificaciones" ToRole="Videojuegos" />
+        </EntityType>
+        <EntityType Name="Compania">
+          <Key>
+            <PropertyRef Name="id_compania" />
+          </Key>
+          <Property Name="id_compania" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="fecha_actualizacion" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="usuario_actualizacion" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Videojuegos" Relationship="Self.FK_Videojuegos_Companias" FromRole="Companias" ToRole="Videojuegos" />
+        </EntityType>
+        <EntityType Name="Videojuego">
+          <Key>
+            <PropertyRef Name="id_videojuego" />
+          </Key>
+          <Property Name="id_videojuego" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="id_compania" Type="Int32" />
+          <Property Name="anio_lanzamiento" Type="Int32" />
+          <Property Name="precio" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="puntaje_promedio" Type="Decimal" Precision="3" Scale="2" />
+          <Property Name="fecha_actualizacion" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="usuario_actualizacion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Calificaciones" Relationship="Self.FK_Calificaciones_Videojuegos" FromRole="Videojuegos" ToRole="Calificaciones" />
+          <NavigationProperty Name="Compania" Relationship="Self.FK_Videojuegos_Companias" FromRole="Videojuegos" ToRole="Companias" />
+        </EntityType>
+        <Association Name="FK_Calificaciones_Videojuegos">
+          <End Role="Videojuegos" Type="Self.Videojuego" Multiplicity="1" />
+          <End Role="Calificaciones" Type="Self.Calificacione" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Videojuegos">
+              <PropertyRef Name="id_videojuego" />
+            </Principal>
+            <Dependent Role="Calificaciones">
+              <PropertyRef Name="id_videojuego" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Videojuegos_Companias">
+          <End Role="Companias" Type="Self.Compania" Multiplicity="0..1" />
+          <End Role="Videojuegos" Type="Self.Videojuego" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Companias">
+              <PropertyRef Name="id_compania" />
+            </Principal>
+            <Dependent Role="Videojuegos">
+              <PropertyRef Name="id_compania" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="OL_Gamers_ALEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Calificaciones" EntityType="Self.Calificacione" />
+          <EntitySet Name="Companias" EntityType="Self.Compania" />
+          <EntitySet Name="Videojuegos" EntityType="Self.Videojuego" />
+          <AssociationSet Name="FK_Calificaciones_Videojuegos" Association="Self.FK_Calificaciones_Videojuegos">
+            <End Role="Videojuegos" EntitySet="Videojuegos" />
+            <End Role="Calificaciones" EntitySet="Calificaciones" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Videojuegos_Companias" Association="Self.FK_Videojuegos_Companias">
+            <End Role="Companias" EntitySet="Companias" />
+            <End Role="Videojuegos" EntitySet="Videojuegos" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="OL_Gamers_ALModelStoreContainer" CdmEntityContainer="OL_Gamers_ALEntities">
+          <EntitySetMapping Name="Calificaciones">
+            <EntityTypeMapping TypeName="OL_Gamers_ALModel.Calificacione">
+              <MappingFragment StoreEntitySet="Calificaciones">
+                <ScalarProperty Name="id_calificacion" ColumnName="id_calificacion" />
+                <ScalarProperty Name="id_videojuego" ColumnName="id_videojuego" />
+                <ScalarProperty Name="nickname" ColumnName="nickname" />
+                <ScalarProperty Name="puntuacion" ColumnName="puntuacion" />
+                <ScalarProperty Name="fecha_actualizacion" ColumnName="fecha_actualizacion" />
+                <ScalarProperty Name="usuario_actualizacion" ColumnName="usuario_actualizacion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Companias">
+            <EntityTypeMapping TypeName="OL_Gamers_ALModel.Compania">
+              <MappingFragment StoreEntitySet="Companias">
+                <ScalarProperty Name="id_compania" ColumnName="id_compania" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="fecha_actualizacion" ColumnName="fecha_actualizacion" />
+                <ScalarProperty Name="usuario_actualizacion" ColumnName="usuario_actualizacion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Videojuegos">
+            <EntityTypeMapping TypeName="OL_Gamers_ALModel.Videojuego">
+              <MappingFragment StoreEntitySet="Videojuegos">
+                <ScalarProperty Name="id_videojuego" ColumnName="id_videojuego" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="id_compania" ColumnName="id_compania" />
+                <ScalarProperty Name="anio_lanzamiento" ColumnName="anio_lanzamiento" />
+                <ScalarProperty Name="precio" ColumnName="precio" />
+                <ScalarProperty Name="puntaje_promedio" ColumnName="puntaje_promedio" />
+                <ScalarProperty Name="fecha_actualizacion" ColumnName="fecha_actualizacion" />
+                <ScalarProperty Name="usuario_actualizacion" ColumnName="usuario_actualizacion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
